@@ -1,3 +1,9 @@
+/* 
+ * This program uses the PortAudio Portable Audio Library and contains code adapted from PortAudio examples.
+ * Copyright (c) 1999–2000 Ross Bencina and Phil Burk
+ * Licensed under the MIT License – see licenses/portaudio.txt
+ */
+
 #include <stdio.h>
 #include <math.h>
 #include "portaudio.h"

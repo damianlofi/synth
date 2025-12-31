@@ -27,7 +27,6 @@ void osc_create(osc *o, float freq, float sample_rate, float *wavetable)
 {
     o->phase = 0.0;
     float inc = freq / sample_rate;
-    printf("%f\n", inc);
     o->inc = inc;
     o->wavetable = wavetable;
     atomic_store(&o->inc_target, inc);
