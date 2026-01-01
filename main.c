@@ -24,9 +24,9 @@ static int audio_callback(
 ) {
     synthesizer *synth = (synthesizer*)userData;
     float *out = (float*)outputBuffer;
- 
-    (void) timeInfo; /* Prevent unused variable warnings. */
-    (void) statusFlags;
+    
+    // Prevent unused variable warnings
+    (void) timeInfo;     (void) statusFlags;
     (void) inputBuffer;
  
     for (unsigned long i=0; i<framesPerBuffer; i++) {
@@ -52,15 +52,17 @@ static int run_app(synthesizer *synth)
     paerr = Pa_Initialize();
     if( paerr != paNoError ) goto cleanup;
 
-    outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+    outputParameters.device = Pa_GetDefaultOutputDevice();
     if (outputParameters.device == paNoDevice) {
         fprintf(stderr,"Error: No default output device.\n");
         paerr = paNoDevice;
         goto cleanup;
     }
 
-    outputParameters.channelCount = 2;       /* stereo output */
-    outputParameters.sampleFormat = paFloat32; /* 32 bit floating point output */
+    /* stereo output */
+    outputParameters.channelCount = 2;       
+    /* 32 bit floating point output */
+    outputParameters.sampleFormat = paFloat32; 
     outputParameters.suggestedLatency = Pa_GetDeviceInfo( outputParameters.device )->defaultLowOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
@@ -78,8 +80,10 @@ static int run_app(synthesizer *synth)
     paerr = Pa_StartStream( stream );
     if( paerr != paNoError ) goto cleanup;
 
+    // start the control interface and let the stream run until control_run() returns
     int control_err = 0;
-    control_err = control_run(synth); // this is blocking (returns only if UI "close" is triggered)
+    control_err = control_run(synth);
+
     goto cleanup;
 
 cleanup:
